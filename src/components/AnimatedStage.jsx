@@ -2,119 +2,177 @@ import React, { useState, useEffect, useRef } from 'react'
 import AuthCard from './AuthCard'
 import Character3D from './Character3D'
 import Suitcase3D from './Suitcase3D'
-import { RotateCcwIcon, VolumeIcon, VolumeXIcon, SparklesIcon } from './Icons'
+import { RotateCcwIcon, VolumeIcon, VolumeXIcon, SparklesIcon, UserIcon } from './Icons'
 import { sound } from '../utils/soundEffects'
 
 export default function AnimatedStage() {
-  // Stage animation state: 'walking' | 'placing' | 'opening' | 'revealed' | 'closed'
-  const [animStep, setAnimStep] = useState('revealed')
+  // Exact user requested state machine:
+  // 1. 'walking_in'   -> Character enters from left walking naturally in profile facing right, holding bag
+  // 2. 'placing_bag'  -> Arrives at center, bends down and places the bag on the floor
+  // 3. 'turning'      -> Turns to face the screen/audience as bag opens
+  // 4. 'form_open'    -> Form emerges up from the bag, character presents form facing user
+  // 5. 'closing_form' -> Form collapses back inside the bag
+  // 6. 'closing_bag'  -> Bag lid snaps shut
+  // 7. 'picking_up'   -> Character bends down and picks up the bag
+  // 8. 'walking_out'  -> Character turns right and walks away to the right carrying the bag
+  // 9. 'vacant'       -> Character is off-screen; summon button available
+  const [phase, setPhase] = useState('walking_in')
+  const [avatarType, setAvatarType] = useState('nepali') // 'nepali' | 'executive'
   const [activeMode, setActiveMode] = useState('register') // 'register' | 'login'
   const [focusedField, setFocusedField] = useState(null)
   const [isCheering, setIsCheering] = useState(false)
   const [muted, setMuted] = useState(false)
-  const [renderEngine, setRenderEngine] = useState('css3d') // 'css3d' | 'video'
-  const [isVideoReady, setIsVideoReady] = useState(false)
-  const [videoOverlayActive, setVideoOverlayActive] = useState(true)
+  const [isHoldingBag, setIsHoldingBag] = useState(true)
+  const [isBagOnFloor, setIsBagOnFloor] = useState(false)
 
-  const videoRef = useRef(null)
-  const animationTimerRef = useRef([])
+  const timersRef = useRef([])
 
-  const clearAllTimers = () => {
-    animationTimerRef.current.forEach(clearTimeout)
-    animationTimerRef.current = []
+  const clearTimers = () => {
+    timersRef.current.forEach(clearTimeout)
+    timersRef.current = []
   }
 
-  // Handle replaying animation
-  const handleReplay = () => {
-    clearAllTimers()
+  // Sequence:
+  // 1. Walk in from left in side profile facing right, holding bag (0 - 1.8s)
+  // 2. Reach center beside box spot, bend down in profile, place bag on floor (1.8s - 2.6s)
+  // 3. Release bag onto floor at 2.2s
+  // 4. Turn to face screen/audience (2.6s - 3.2s) -> "ani uslya screen tira hyarxa"
+  // 5. Box opens, Form emerges upwards from box (3.2s)
+  const startEntranceSequence = () => {
+    clearTimers()
     setIsCheering(false)
+    setIsHoldingBag(true)
+    setIsBagOnFloor(false)
     sound.playPop()
 
-    if (renderEngine === 'video') {
-      if (videoRef.current) {
-        videoRef.current.currentTime = 0
-        videoRef.current.play()
-        setVideoOverlayActive(false)
-      }
-      setAnimStep('walking')
+    // Step 1: Walk in from left facing right in natural side profile
+    setPhase('walking_in')
 
-      // At 4.2s in video, form opens
-      const t1 = setTimeout(() => {
-        sound.playWhoosh()
-        setAnimStep('revealed')
-        setVideoOverlayActive(true)
-      }, 4200)
+    // Step 2: Reached center! Still in side profile! Bends down to place bag on floor
+    const t1 = setTimeout(() => {
+      setPhase('placing_bag')
+    }, 1800)
 
-      animationTimerRef.current = [t1]
-    } else {
-      // CSS 3D Timeline
-      setAnimStep('walking')
+    // Hand sets bag down on floor
+    const t1_drop = setTimeout(() => {
+      setIsHoldingBag(false)
+      setIsBagOnFloor(true)
+      sound.playClick()
+    }, 2200)
 
-      // Step 1: Walking in (0 to 1.4s)
-      const t1 = setTimeout(() => {
-        setAnimStep('placing')
-      }, 1400)
+    // Step 3: Straightens up and turns to face the screen/audience
+    const t2 = setTimeout(() => {
+      setPhase('turning')
+      sound.playPop()
+    }, 2600)
 
-      // Step 2: Placing suitcase & tapping (1.4s to 2.4s)
-      const t2 = setTimeout(() => {
-        setAnimStep('opening')
-        sound.playPop()
-      }, 2400)
+    // Step 4: Box lid opens, Form unfolds up from the box, character presents to user
+    const t3 = setTimeout(() => {
+      setPhase('form_open')
+      sound.playWhoosh()
+    }, 3200)
 
-      // Step 3: Suitcase opens, light burst, form shoots up (2.4s to 3.2s)
-      const t3 = setTimeout(() => {
-        sound.playWhoosh()
-        setAnimStep('revealed')
-      }, 3100)
-
-      animationTimerRef.current = [t1, t2, t3]
-    }
+    timersRef.current = [t1, t1_drop, t2, t3]
   }
 
-  // Handle video playback events
-  const handleVideoTimeUpdate = () => {
-    if (!videoRef.current) return
-    const ct = videoRef.current.currentTime
-    if (ct >= 4.2 && !videoOverlayActive) {
-      setVideoOverlayActive(true)
-      setAnimStep('revealed')
-    }
-    // Loop before the TikTok outro (outro starts at ~7s)
-    if (ct >= 7.2) {
-      videoRef.current.currentTime = 4.8
-    }
+  // Sequence on Close [X]:
+  // 1. Form collapses down into box (0 - 0.4s) -> "ani jaani bela form box vitra jaanxa"
+  // 2. Box snaps shut with click (0.4s - 0.7s)
+  // 3. Character turns from front to side profile facing box (0.7s - 1.0s)
+  // 4. Character bends down in profile to pick up bag (1.0s - 1.6s)
+  // 5. Hand lifts bag off floor at 1.3s
+  // 6. Character strides away to the right carrying bag (1.6s - 3.4s) -> "ani uu daaya tira lagxa"
+  // 7. Vacant screen with summon button (3.4s)
+  const handleCloseForm = () => {
+    clearTimers()
+    sound.playPop()
+
+    // Step 1: Form collapses down into box
+    setPhase('closing_form')
+
+    // Step 2: Box lid snaps shut
+    const t1 = setTimeout(() => {
+      setPhase('closing_bag')
+      sound.playClick()
+    }, 400)
+
+    // Step 3: Character turns back to side profile facing the box
+    const t2 = setTimeout(() => {
+      setPhase('turning_to_bag')
+    }, 700)
+
+    // Step 4: Character bends down in side profile to pick up bag
+    const t3 = setTimeout(() => {
+      setPhase('picking_up')
+    }, 1000)
+
+    // Hand grips handle and lifts bag off floor
+    const t3_grab = setTimeout(() => {
+      setIsBagOnFloor(false)
+      setIsHoldingBag(true)
+      sound.playClick()
+    }, 1300)
+
+    // Step 5: Character stands up with bag and walks away to the right
+    const t4 = setTimeout(() => {
+      setPhase('walking_out')
+    }, 1600)
+
+    // Step 6: Character is off-screen
+    const t5 = setTimeout(() => {
+      setPhase('vacant')
+    }, 3400)
+
+    timersRef.current = [t1, t2, t3, t3_grab, t4, t5]
   }
 
-  // Handle mute toggling
   const toggleMute = () => {
     const next = !muted
     setMuted(next)
     sound.muted = next
   }
 
-  // Initial autoplay on mount
+  const toggleAvatar = () => {
+    sound.playSwitch()
+    setAvatarType((prev) => (prev === 'nepali' ? 'executive' : 'nepali'))
+  }
+
   useEffect(() => {
-    handleReplay()
-    return () => clearAllTimers()
-  }, [renderEngine])
-
-  const handleCloseCard = () => {
-    sound.playPop()
-    setAnimStep('closed')
-  }
-
-  const handleOpenCard = () => {
-    sound.playWhoosh()
-    setAnimStep('revealed')
-  }
+    startEntranceSequence()
+    return () => clearTimers()
+  }, [])
 
   const handleSuccessSubmit = () => {
     setIsCheering(true)
   }
 
+  const getCharacterPose = () => {
+    switch (phase) {
+      case 'walking_in':
+        return 'walking_in'
+      case 'placing_bag':
+        return 'placing'
+      case 'turning':
+        return 'turning'
+      case 'form_open':
+        return 'presenting'
+      case 'closing_form':
+      case 'closing_bag':
+        return 'presenting'
+      case 'turning_to_bag':
+        return 'turning_to_bag'
+      case 'picking_up':
+        return 'picking_up'
+      case 'walking_out':
+        return 'walking_out'
+      default:
+        return 'presenting'
+    }
+  }
+
   return (
     <div className="stage-wrapper">
-      {/* Dynamic Background with Modern Radial Vignette */}
+      {/* Background Lighting */}
       <div className="stage-backdrop">
         <div className="backdrop-radial-light" />
         <div className="backdrop-grid-glow" />
@@ -125,51 +183,37 @@ export default function AnimatedStage() {
         </div>
       </div>
 
-      {/* Top Floating Control Bar */}
+      {/* Top Navbar */}
       <header className="stage-navbar">
         <div className="brand-badge">
           <div className="brand-dot" />
-          <span className="brand-title">3D Webinar Experience</span>
+          <span className="brand-title">Production Auth Portal</span>
         </div>
 
         <div className="controls-group">
-          {/* Engine Switcher */}
-          <div className="engine-switch">
-            <button
-              type="button"
-              className={`engine-btn ${renderEngine === 'css3d' ? 'active' : ''}`}
-              onClick={() => {
-                setRenderEngine('css3d')
-              }}
-              title="Interactive Vector 3D Stage"
-            >
-              <SparklesIcon className="w-3.5 h-3.5" />
-              <span>Interactive 3D Stage</span>
-            </button>
-            <button
-              type="button"
-              className={`engine-btn ${renderEngine === 'video' ? 'active' : ''}`}
-              onClick={() => {
-                setRenderEngine('video')
-              }}
-              title="Synchronized Video Reveal"
-            >
-              <span>Video Sync Demo</span>
-            </button>
-          </div>
+          {/* Avatar Switcher */}
+          <button
+            type="button"
+            className="control-btn avatar-toggle-btn"
+            onClick={toggleAvatar}
+            title="Switch Character"
+          >
+            <UserIcon width={16} height={16} />
+            <span>Character: {avatarType === 'nepali' ? 'Nepali Lady' : 'Executive'}</span>
+          </button>
 
-          {/* Replay Button */}
+          {/* Replay Sequence Button */}
           <button
             type="button"
             className="control-btn replay-btn"
-            onClick={handleReplay}
-            title="Replay Entrance Animation"
+            onClick={startEntranceSequence}
+            title="Replay Entrance Sequence"
           >
-            <RotateCcwIcon className="w-4 h-4" />
-            <span>Replay Animation</span>
+            <RotateCcwIcon width={16} height={16} />
+            <span>Replay Walk</span>
           </button>
 
-          {/* Audio Mute Button */}
+          {/* Audio Mute Toggle */}
           <button
             type="button"
             className="control-btn mute-btn"
@@ -177,132 +221,99 @@ export default function AnimatedStage() {
             title={muted ? 'Unmute Sound Effects' : 'Mute Sound Effects'}
             aria-label={muted ? 'Unmute' : 'Mute'}
           >
-            {muted ? <VolumeXIcon className="w-4 h-4" /> : <VolumeIcon className="w-4 h-4" />}
+            {muted ? <VolumeXIcon width={16} height={16} /> : <VolumeIcon width={16} height={16} />}
           </button>
         </div>
       </header>
 
-      {/* --- MAIN STAGE SCENE --- */}
+      {/* Main Viewport */}
       <main className="stage-viewport">
-        {renderEngine === 'video' ? (
-          /* ============================================================ */
-          /* ENGINE A: Synchronized Video Reveal (Plays demo video clip) */
-          /* ============================================================ */
-          <div className="video-stage-container">
-            <div className="video-crop-box">
-              <video
-                ref={videoRef}
-                src="/animation.mp4"
-                className="synced-video-player"
-                playsInline
-                autoPlay
-                muted
-                onTimeUpdate={handleVideoTimeUpdate}
-                onLoadedMetadata={() => setIsVideoReady(true)}
-              />
-            </div>
+        <div className={`scene-content phase-${phase}`}>
+          {/* Floor Reflection Line */}
+          <div className="stage-floor">
+            <div className="floor-light-spot" />
+          </div>
 
-            {/* Seamless Interactive Form Overlay */}
-            {animStep === 'revealed' && videoOverlayActive && (
-              <div className="video-interactive-overlay">
-                <AuthCard
-                  mode={activeMode}
-                  setMode={setActiveMode}
-                  onClose={handleCloseCard}
-                  onSuccessSubmit={handleSuccessSubmit}
-                  onInputFocus={(field) => setFocusedField(field)}
-                  onInputBlur={() => setFocusedField(null)}
+          {/* STAGE ACTORS: Character + Suitcase + Form */}
+          <div className="stage-actors-row">
+            {/* 3D Character */}
+            {phase !== 'vacant' && (
+              <div
+                className={`actor-character-slot slot-${phase}`}
+              >
+                <Character3D
+                  avatarType={avatarType}
+                  pose={getCharacterPose()}
+                  targetField={focusedField}
+                  isCheering={isCheering}
+                  isHoldingBag={isHoldingBag}
                 />
               </div>
             )}
-          </div>
-        ) : (
-          /* ============================================================ */
-          /* ENGINE B: Full CSS/SVG 3D Animated Vector Experience         */
-          /* ============================================================ */
-          <div className={`scene-content step-${animStep}`}>
-            {/* Ground Reflection & Shadow Line */}
-            <div className="stage-floor">
-              <div className="floor-light-spot" />
-            </div>
 
-            {/* Stage Character & Form Row */}
-            <div className="stage-actors-row">
-              {/* 3D Character (Positioned to the left of the card, matching video!) */}
-              <div
-                className={`actor-character-slot ${
-                  animStep === 'walking'
-                    ? 'char-walking-in'
-                    : animStep === 'placing'
-                    ? 'char-placing-down'
-                    : animStep === 'opening'
-                    ? 'char-tapping'
-                    : 'char-presenting'
-                }`}
-              >
-                <Character3D
-                  pose={
-                    animStep === 'walking'
-                      ? 'walking'
-                      : animStep === 'placing'
-                      ? 'placing'
-                      : animStep === 'opening'
-                      ? 'tapping'
-                      : 'presenting'
-                  }
-                  targetField={focusedField}
-                  isCheering={isCheering}
-                />
-              </div>
-
-              {/* Central Area: Suitcase + Emerging Form Modal */}
+            {/* Central Form & Suitcase Unit */}
+            {phase !== 'vacant' && (
               <div className="actor-center-slot">
-                {/* 3D Suitcase at the base */}
-                <div className="suitcase-anchor">
-                  <Suitcase3D
-                    isOpen={animStep === 'opening' || animStep === 'revealed'}
-                    isOpening={animStep === 'opening'}
-                  />
-
-                  {/* Button to reopen if closed */}
-                  {animStep === 'closed' && (
-                    <button
-                      type="button"
-                      className="open-suitcase-btn"
-                      onClick={handleOpenCard}
-                    >
-                      <SparklesIcon className="w-4 h-4" />
-                      <span>Open Register Form</span>
-                    </button>
-                  )}
-                </div>
-
-                {/* Form Modal Emerging upwards out of the briefcase */}
-                {animStep === 'revealed' && (
-                  <div className="form-emerge-container">
+                {/* Emerging Form Modal */}
+                {(phase === 'form_open' || phase === 'closing_form') && (
+                  <div
+                    className={`form-emerge-container ${
+                      phase === 'closing_form' ? 'form-closing-down' : 'form-opening-up'
+                    }`}
+                  >
                     <AuthCard
                       mode={activeMode}
                       setMode={setActiveMode}
-                      onClose={handleCloseCard}
+                      onClose={handleCloseForm}
+                      isClosing={phase === 'closing_form'}
                       onSuccessSubmit={handleSuccessSubmit}
                       onInputFocus={(field) => setFocusedField(field)}
                       onInputBlur={() => setFocusedField(null)}
                     />
                   </div>
                 )}
+
+                {/* 3D Bag / Box Resting on the Floor */}
+                {isBagOnFloor && (
+                  <div className="floor-suitcase-slot">
+                    <Suitcase3D
+                      state={phase === 'form_open' ? 'open' : 'closed'}
+                      isHeld={false}
+                    />
+                  </div>
+                )}
               </div>
-            </div>
+            )}
+
+            {/* If Character has walked away, show Summon Card */}
+            {phase === 'vacant' && (
+              <div className="vacant-summon-card">
+                <div className="summon-icon-bubble">
+                  <SparklesIcon width={32} height={32} />
+                </div>
+                <h3>Representative packed the bag and walked away!</h3>
+                <p>Click below to summon the representative back with the registration/login bag.</p>
+                <button
+                  type="button"
+                  className="auth-submit-btn summon-btn"
+                  onClick={startEntranceSequence}
+                >
+                  <SparklesIcon width={16} height={16} />
+                  <span>Bring Bag Back & Open Form</span>
+                </button>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </main>
 
-      {/* Floating Status & Instruction Footer */}
+      {/* Footer */}
       <footer className="stage-footer-bar">
         <span className="live-indicator">
-          <span className="live-dot" /> LIVE DEMO
+          <span className="live-dot" /> PRODUCTION READY
         </span>
         <span className="footer-text">
-          Interactive recreation of the 3D briefcase entrance & form unfold animation
+          Natural Profile Walking from Left &bull; Places Box & Turns to Screen &bull; Form Closes into Box & Representative Walks Right
         </span>
       </footer>
     </div>

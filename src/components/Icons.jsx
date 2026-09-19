@@ -1,9 +1,11 @@
 import React from 'react'
 
-export function UserIcon({ className = 'w-5 h-5', ...props }) {
+export function UserIcon({ className = '', width = 18, height = 18, ...props }) {
   return (
     <svg
       className={className}
+      width={width}
+      height={height}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -18,10 +20,12 @@ export function UserIcon({ className = 'w-5 h-5', ...props }) {
   )
 }
 
-export function MailIcon({ className = 'w-5 h-5', ...props }) {
+export function MailIcon({ className = '', width = 18, height = 18, ...props }) {
   return (
     <svg
       className={className}
+      width={width}
+      height={height}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -36,10 +40,12 @@ export function MailIcon({ className = 'w-5 h-5', ...props }) {
   )
 }
 
-export function LockIcon({ className = 'w-5 h-5', ...props }) {
+export function LockIcon({ className = '', width = 18, height = 18, ...props }) {
   return (
     <svg
       className={className}
+      width={width}
+      height={height}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -54,10 +60,12 @@ export function LockIcon({ className = 'w-5 h-5', ...props }) {
   )
 }
 
-export function EyeIcon({ className = 'w-5 h-5', ...props }) {
+export function EyeIcon({ className = '', width = 18, height = 18, ...props }) {
   return (
     <svg
       className={className}
+      width={width}
+      height={height}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -72,10 +80,12 @@ export function EyeIcon({ className = 'w-5 h-5', ...props }) {
   )
 }
 
-export function EyeOffIcon({ className = 'w-5 h-5', ...props }) {
+export function EyeOffIcon({ className = '', width = 18, height = 18, ...props }) {
   return (
     <svg
       className={className}
+      width={width}
+      height={height}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -92,10 +102,12 @@ export function EyeOffIcon({ className = 'w-5 h-5', ...props }) {
   )
 }
 
-export function CloseIcon({ className = 'w-5 h-5', ...props }) {
+export function CloseIcon({ className = '', width = 16, height = 16, ...props }) {
   return (
     <svg
       className={className}
+      width={width}
+      height={height}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -110,10 +122,12 @@ export function CloseIcon({ className = 'w-5 h-5', ...props }) {
   )
 }
 
-export function CheckIcon({ className = 'w-5 h-5', ...props }) {
+export function CheckIcon({ className = '', width = 28, height = 28, ...props }) {
   return (
     <svg
       className={className}
+      width={width}
+      height={height}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -127,10 +141,12 @@ export function CheckIcon({ className = 'w-5 h-5', ...props }) {
   )
 }
 
-export function RotateCcwIcon({ className = 'w-5 h-5', ...props }) {
+export function RotateCcwIcon({ className = '', width = 16, height = 16, ...props }) {
   return (
     <svg
       className={className}
+      width={width}
+      height={height}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -145,10 +161,12 @@ export function RotateCcwIcon({ className = 'w-5 h-5', ...props }) {
   )
 }
 
-export function SparklesIcon({ className = 'w-5 h-5', ...props }) {
+export function SparklesIcon({ className = '', width = 16, height = 16, ...props }) {
   return (
     <svg
       className={className}
+      width={width}
+      height={height}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -166,10 +184,12 @@ export function SparklesIcon({ className = 'w-5 h-5', ...props }) {
   )
 }
 
-export function VolumeIcon({ className = 'w-5 h-5', ...props }) {
+export function VolumeIcon({ className = '', width = 16, height = 16, ...props }) {
   return (
     <svg
       className={className}
+      width={width}
+      height={height}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -185,10 +205,12 @@ export function VolumeIcon({ className = 'w-5 h-5', ...props }) {
   )
 }
 
-export function VolumeXIcon({ className = 'w-5 h-5', ...props }) {
+export function VolumeXIcon({ className = '', width = 16, height = 16, ...props }) {
   return (
     <svg
       className={className}
+      width={width}
+      height={height}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -204,10 +226,12 @@ export function VolumeXIcon({ className = 'w-5 h-5', ...props }) {
   )
 }
 
-export function ArrowRightIcon({ className = 'w-5 h-5', ...props }) {
+export function ArrowRightIcon({ className = '', width = 16, height = 16, ...props }) {
   return (
     <svg
       className={className}
+      width={width}
+      height={height}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"

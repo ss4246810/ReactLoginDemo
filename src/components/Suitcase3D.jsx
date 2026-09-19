@@ -1,13 +1,15 @@
 import React from 'react'
 
-export default function Suitcase3D({ isOpen = true, isOpening = false }) {
+export default function Suitcase3D({ state = 'open', isHeld = false }) {
+  const isOpen = state === 'open' || state === 'opening'
+
   return (
-    <div className={`suitcase-scene ${isOpen ? 'suitcase-open' : 'suitcase-closed'} ${isOpening ? 'suitcase-animating' : ''}`}>
-      {/* Ground soft shadow */}
-      <div className="suitcase-shadow" />
+    <div className={`suitcase-component ${isHeld ? 'held-mode' : 'floor-mode'} state-${state}`}>
+      {/* Ground soft shadow (only when resting on floor) */}
+      {!isHeld && <div className="suitcase-shadow" />}
 
       {/* Energy Glow Burst when open */}
-      {isOpen && (
+      {isOpen && !isHeld && (
         <div className="suitcase-glow-burst">
           <div className="glow-ray ray-1" />
           <div className="glow-ray ray-2" />
@@ -15,14 +17,13 @@ export default function Suitcase3D({ isOpen = true, isOpening = false }) {
           <div className="spark-particle spark-1" />
           <div className="spark-particle spark-2" />
           <div className="spark-particle spark-3" />
-          <div className="spark-particle spark-4" />
         </div>
       )}
 
       {/* 3D Suitcase Object */}
-      <div className="suitcase-3d-box">
+      <div className="suitcase-box-3d">
         {/* Lid (Opens backwards with 3D rotateX) */}
-        <div className="suitcase-lid">
+        <div className={`suitcase-lid ${isOpen ? 'lid-open' : 'lid-closed'}`}>
           <div className="lid-face lid-front">
             <div className="leather-texture" />
             <div className="brass-corner corner-tl" />
@@ -54,12 +55,11 @@ export default function Suitcase3D({ isOpen = true, isOpening = false }) {
             <div className="lock-clasp clasp-l" />
             <div className="lock-clasp clasp-r" />
             <div className="brass-plate">
-              <span>AGY 2026</span>
+              <span>AGY AUTH</span>
             </div>
           </div>
           <div className="base-interior">
             <div className="interior-silk" />
-            <div className="interior-portal-beam" />
           </div>
         </div>
       </div>

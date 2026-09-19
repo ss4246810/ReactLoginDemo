@@ -18,7 +18,7 @@
   overflow: hidden;
 }
 
-/* Dynamic backdrop reproducing the video's royal blue stage */
+/* Vibrant Royal Blue Stage Backdrop matching video */
 .stage-backdrop {
   position: absolute;
   inset: 0;
@@ -29,13 +29,13 @@
 
 .backdrop-radial-light {
   position: absolute;
-  top: 15%;
+  top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 900px;
-  height: 600px;
-  background: radial-gradient(ellipse at center, rgba(96, 165, 250, 0.35) 0%, rgba(37, 99, 235, 0.15) 50%, transparent 75%);
-  filter: blur(50px);
+  width: 950px;
+  height: 620px;
+  background: radial-gradient(ellipse at center, rgba(96, 165, 250, 0.38) 0%, rgba(37, 99, 235, 0.15) 50%, transparent 75%);
+  filter: blur(55px);
   pointer-events: none;
   animation: lightPulse 8s ease-in-out infinite alternate;
 }
@@ -46,9 +46,9 @@
   background-image: 
     linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse at 50% 40%, black 20%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, black 20%, transparent 70%);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse at 50% 45%, black 25%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 45%, black 25%, transparent 75%);
   pointer-events: none;
 }
 
@@ -56,40 +56,18 @@
   position: absolute;
   border-radius: 50%;
   filter: blur(60px);
-  opacity: 0.35;
+  opacity: 0.3;
   pointer-events: none;
   animation: orbDrift 14s ease-in-out infinite alternate;
 }
 
-.orb-1 {
-  width: 380px;
-  height: 380px;
-  background: #38bdf8;
-  top: -60px;
-  left: 10%;
-}
-
-.orb-2 {
-  width: 440px;
-  height: 440px;
-  background: #6366f1;
-  bottom: 5%;
-  right: 8%;
-  animation-duration: 18s;
-}
-
-.orb-3 {
-  width: 260px;
-  height: 260px;
-  background: #10b981;
-  top: 40%;
-  right: 25%;
-  opacity: 0.2;
-}
+.orb-1 { width: 380px; height: 380px; background: #38bdf8; top: -60px; left: 10%; }
+.orb-2 { width: 440px; height: 440px; background: #6366f1; bottom: 5%; right: 8%; animation-duration: 18s; }
+.orb-3 { width: 260px; height: 260px; background: #10b981; top: 40%; right: 25%; opacity: 0.2; }
 
 @keyframes lightPulse {
   0% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.8; }
-  100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1.08); opacity: 1; }
 }
 
 @keyframes orbDrift {
@@ -98,7 +76,7 @@
 }
 
 /* ============================================================
-   TOP NAVBAR CONTROLS
+   TOP NAVBAR
    ============================================================ */
 .stage-navbar {
   position: relative;
@@ -106,8 +84,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 32px;
-  background: rgba(15, 23, 42, 0.25);
+  padding: 16px 32px;
+  background: rgba(15, 23, 42, 0.3);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -150,57 +128,33 @@
   gap: 12px;
 }
 
-.engine-switch {
-  display: flex;
-  background: rgba(15, 23, 42, 0.4);
-  padding: 4px;
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-}
-
-.engine-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  border-radius: 9999px;
-  font-size: 12.5px;
-  font-weight: 600;
-  color: #94a3b8;
-  transition: all 0.2s ease;
-}
-
-.engine-btn:hover {
-  color: #ffffff;
-}
-
-.engine-btn.active {
-  background: #ffffff;
-  color: #0f172a;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
 .control-btn {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 9999px;
   color: #ffffff;
   font-size: 13px;
   font-weight: 600;
   backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
 }
 
 .control-btn:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.24);
   transform: translateY(-1px);
 }
 
 .control-btn:active {
   transform: translateY(1px);
+}
+
+.avatar-toggle-btn {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.3) 0%, rgba(37, 99, 235, 0.3) 100%);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 .mute-btn {
@@ -217,14 +171,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
-  min-height: 640px;
+  padding: 20px 24px;
+  min-height: 680px;
 }
 
 .scene-content {
   position: relative;
   width: 100%;
-  max-width: 1080px;
+  max-width: 1140px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -233,10 +187,10 @@
 
 .stage-floor {
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
   left: 5%;
   right: 5%;
-  height: 90px;
+  height: 80px;
   pointer-events: none;
   z-index: 1;
 }
@@ -253,7 +207,7 @@
   border-bottom: 2px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Actors Row (Character on left, Form & Suitcase in center) */
+/* Actors Row (Character on left, Form in center grounded on floor) */
 .stage-actors-row {
   position: relative;
   z-index: 10;
@@ -265,18 +219,19 @@
 }
 
 /* ============================================================
-   CHARACTER POSITIONING & ANIMATIONS
+   NATURAL PROFILE WALKING FROM LEFT & SMOOTH TURN MECHANICS
    ============================================================ */
 .actor-character-slot {
   position: relative;
   z-index: 15;
-  width: 170px;
-  height: 350px;
+  width: 220px;
+  height: 440px;
   flex-shrink: 0;
-  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-style: preserve-3d;
+  align-self: flex-end;
 }
 
-.character-container {
+.character-root {
   width: 100%;
   height: 100%;
   display: flex;
@@ -289,36 +244,125 @@
   width: 100%;
   height: 100%;
   overflow: visible;
-  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.45));
 }
 
-/* Step Animations */
-.char-walking-in {
-  animation: walkIn 1.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+/* 1. Walk in from left facing right in natural side profile */
+.slot-walking_in {
+  animation: naturalWalkInFromLeft 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-.char-placing-down {
-  animation: placeSuitcase 1s ease-in-out forwards;
+/* 2. Arrive at center, bend down to place bag on floor */
+.slot-placing_bag {
+  animation: none;
 }
 
-.char-tapping {
-  animation: tapBriefcase 0.7s ease-in-out forwards;
+/* 3. Smoothly turn from profile to face the screen/audience ("ani uslya screen tira hyarxa") */
+.slot-turning {
+  animation: smoothTurnToFront 0.6s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
 }
 
-.char-presenting {
+/* 4. Standing proudly facing user while form is open */
+.slot-form_open {
   animation: standProud 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards, idleBreathe 4s ease-in-out 0.6s infinite alternate;
 }
 
-.character-cheering {
-  animation: cheerDance 0.8s ease-in-out infinite alternate !important;
+/* 5. Turning back from front view to side profile facing bag */
+.slot-turning_to_bag {
+  animation: smoothTurnToProfile 0.3s ease-in-out forwards;
 }
 
-@keyframes walkIn {
+/* 6. Bending down to pick up bag */
+.slot-picking_up {
+  animation: none;
+}
+
+/* 7. Walking away facing right off-screen carrying bag ("ani uu daaya tira lagxa") */
+.slot-walking_out {
+  animation: naturalWalkOutToRight 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ============================================================
+   SIDE PROFILE WALK CYCLE & BENDING KEYFRAMES
+   ============================================================ */
+/* Side Profile Legs Striding (active while walking in & out) */
+.pose-walking_in .profile-leg-front,
+.pose-walking_out .profile-leg-front {
+  animation: profileLegStrideFront 0.48s infinite ease-in-out;
+  transform-origin: 90px 200px;
+}
+
+.pose-walking_in .profile-leg-back,
+.pose-walking_out .profile-leg-back {
+  animation: profileLegStrideBack 0.48s infinite ease-in-out;
+  transform-origin: 90px 200px;
+}
+
+/* Vertical Torso & Head Bob in Profile */
+.pose-walking_in .profile-torso,
+.pose-walking_out .profile-torso,
+.pose-walking_in .profile-head,
+.pose-walking_out .profile-head {
+  animation: profileTorsoBob 0.48s infinite ease-in-out;
+  transform-origin: 90px 200px;
+}
+
+/* Weighted Handbag / Briefcase Pendulum Swing */
+.pose-walking_in .profile-arm-front,
+.pose-walking_out .profile-arm-front {
+  animation: profileArmSwing 0.48s infinite ease-in-out;
+  transform-origin: 90px 125px;
+}
+
+.pose-walking_in .profile-bag-pendulum,
+.pose-walking_out .profile-bag-pendulum {
+  animation: profileBagLag 0.48s infinite ease-in-out;
+  transform-origin: 22px 4px;
+}
+
+/* Long Braid trailing in walking breeze */
+.pose-walking_in .profile-braid-trail,
+.pose-walking_out .profile-braid-trail {
+  animation: braidBreezeSway 0.48s infinite ease-in-out;
+  transform-origin: 78px 78px;
+}
+
+/* Dynamic Shadow size change with steps */
+.pose-walking_in .profile-ground-shadow,
+.pose-walking_out .profile-ground-shadow {
+  animation: shadowStepPulse 0.48s infinite ease-in-out;
+  transform-origin: 90px 325px;
+}
+
+/* Placing bag in side profile: upper body bends down gracefully to place bag on floor */
+.pose-placing .profile-upper-body {
+  animation: profileBendingToFloor 1.0s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-origin: 90px 185px;
+}
+
+.pose-placing .profile-arm-front {
+  animation: profileArmLowering 1.0s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-origin: 90px 125px;
+}
+
+/* Picking up bag in side profile: bends down and lifts up */
+.pose-picking_up .profile-upper-body {
+  animation: profileBendingToFloor 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-origin: 90px 185px;
+}
+
+.pose-picking_up .profile-arm-front {
+  animation: profileArmLowering 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-origin: 90px 125px;
+}
+
+/* Keyframes */
+@keyframes naturalWalkInFromLeft {
   0% {
-    transform: translateX(-240px);
+    transform: translateX(-560px);
     opacity: 0;
   }
-  30% {
+  15% {
     opacity: 1;
   }
   100% {
@@ -327,56 +371,167 @@
   }
 }
 
-@keyframes placeSuitcase {
+@keyframes naturalWalkOutToRight {
   0% {
-    transform: translateY(0) scale(1);
+    transform: translateX(0);
+    opacity: 1;
   }
-  50% {
-    transform: translateY(18px) scale(0.98);
+  80% {
+    opacity: 1;
   }
   100% {
-    transform: translateY(0) scale(1);
+    transform: translateX(650px);
+    opacity: 0;
   }
 }
 
-@keyframes tapBriefcase {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(14px) rotate(-2deg); }
-  100% { transform: translateY(0); }
+@keyframes profileTorsoBob {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Front Leg: Forward reach -> Plant -> Push back */
+@keyframes profileLegStrideFront {
+  0% {
+    transform: rotate(24deg) translateY(0);
+  }
+  50% {
+    transform: rotate(0deg) translateY(-5px);
+  }
+  100% {
+    transform: rotate(-22deg) translateY(0);
+  }
+}
+
+/* Back Leg: Opposite stride */
+@keyframes profileLegStrideBack {
+  0% {
+    transform: rotate(-22deg) translateY(0);
+  }
+  50% {
+    transform: rotate(0deg) translateY(-5px);
+  }
+  100% {
+    transform: rotate(24deg) translateY(0);
+  }
+}
+
+/* Arm Swing in Profile */
+@keyframes profileArmSwing {
+  0% {
+    transform: rotate(14deg);
+  }
+  50% {
+    transform: rotate(-2deg);
+  }
+  100% {
+    transform: rotate(-14deg);
+  }
+}
+
+/* Bag Pendulum Inertia */
+@keyframes profileBagLag {
+  0% {
+    transform: translate(85px, 218px) rotate(-10deg);
+  }
+  50% {
+    transform: translate(85px, 212px) rotate(2deg);
+  }
+  100% {
+    transform: translate(85px, 218px) rotate(12deg);
+  }
+}
+
+/* Braid wind lag */
+@keyframes braidBreezeSway {
+  0% { transform: rotate(-6deg); }
+  50% { transform: rotate(4deg); }
+  100% { transform: rotate(-6deg); }
+}
+
+@keyframes shadowStepPulse {
+  0%, 100% {
+    transform: scale(0.92);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.55;
+  }
+}
+
+@keyframes profileBendingToFloor {
+  0% {
+    transform: rotate(0deg) translateY(0);
+  }
+  50% {
+    transform: rotate(28deg) translateY(42px);
+  }
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+}
+
+@keyframes profileArmLowering {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(40deg) translateY(38px);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Smooth transition when turning to face the screen */
+@keyframes smoothTurnToFront {
+  0% {
+    transform: rotateY(-80deg) scale(0.96);
+    opacity: 0.9;
+  }
+  100% {
+    transform: rotateY(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Smooth transition when turning back to profile */
+@keyframes smoothTurnToProfile {
+  0% {
+    transform: rotateY(0deg) scale(1);
+  }
+  100% {
+    transform: rotateY(-80deg) scale(0.96);
+  }
 }
 
 @keyframes standProud {
-  0% {
-    transform: scale(0.95);
-  }
-  60% {
-    transform: scale(1.03);
-  }
-  100% {
-    transform: scale(1);
-  }
+  0% { transform: scale(0.95); }
+  60% { transform: scale(1.03); }
+  100% { transform: scale(1); }
 }
 
 @keyframes idleBreathe {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-6px);
-  }
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
+
+.character-cheering {
+  animation: cheerDance 0.8s ease-in-out infinite alternate !important;
 }
 
 @keyframes cheerDance {
-  0% {
-    transform: translateY(0) rotate(-2deg) scale(1.02);
-  }
-  100% {
-    transform: translateY(-12px) rotate(2deg) scale(1.05);
-  }
+  0% { transform: translateY(0) rotate(-2deg) scale(1.02); }
+  100% { transform: translateY(-14px) rotate(2deg) scale(1.05); }
 }
 
 /* ============================================================
-   SUITCASE 3D STYLING & ANIMATIONS
+   SUITCASE / BOX 3D STYLING & ANIMATIONS
    ============================================================ */
 .actor-center-slot {
   position: relative;
@@ -384,18 +539,21 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
+  min-height: 520px;
+  align-self: flex-end;
 }
 
-.suitcase-anchor {
+.floor-suitcase-slot {
   position: relative;
-  z-index: 5;
-  margin-top: -10px;
+  z-index: 10;
+  margin-top: 6px;
+  transform: translateY(-8px);
 }
 
-.suitcase-scene {
+.suitcase-component {
   position: relative;
-  width: 140px;
-  height: 52px;
+  width: 148px;
+  height: 54px;
   perspective: 600px;
   transform-style: preserve-3d;
 }
@@ -406,12 +564,12 @@
   left: 5%;
   width: 90%;
   height: 14px;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.45) 0%, transparent 75%);
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.5) 0%, transparent 75%);
   border-radius: 50%;
   filter: blur(4px);
 }
 
-.suitcase-3d-box {
+.suitcase-box-3d {
   position: relative;
   width: 100%;
   height: 100%;
@@ -570,9 +728,13 @@
   opacity: 0.85;
 }
 
-/* When suitcase is open */
-.suitcase-open .suitcase-lid {
+/* Lid Open vs Closed */
+.lid-open {
   transform: rotateX(-120deg);
+}
+
+.lid-closed {
+  transform: rotateX(0deg);
 }
 
 /* Energy Burst / Light Rays from Suitcase */
@@ -615,7 +777,6 @@
 .spark-1 { left: 40%; animation-delay: 0.1s; }
 .spark-2 { left: 55%; animation-delay: 0.6s; }
 .spark-3 { left: 30%; animation-delay: 1.1s; }
-.spark-4 { left: 68%; animation-delay: 1.4s; }
 
 @keyframes rayFlicker {
   0% { opacity: 0.45; }
@@ -627,25 +788,58 @@
   100% { transform: translateY(-160px) scale(1.2); opacity: 0; }
 }
 
-/* Button to reopen card if closed */
-.open-suitcase-btn {
-  margin-top: 14px;
+/* ============================================================
+   VACANT SUMMON CARD (WHEN MAN HAS WALKED AWAY)
+   ============================================================ */
+.vacant-summon-card {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 8px 18px;
-  background: #00c853;
-  color: #ffffff;
-  font-size: 13px;
-  font-weight: 700;
-  border-radius: 9999px;
-  box-shadow: 0 4px 14px rgba(0, 200, 83, 0.4);
-  animation: pulseButton 2s infinite;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: 40px 32px;
+  max-width: 460px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+  animation: cardFadeIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-@keyframes pulseButton {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+.summon-icon-bubble {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.4);
+}
+
+.vacant-summon-card h3 {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.vacant-summon-card p {
+  font-size: 13.5px;
+  color: #64748b;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.summon-btn {
+  max-width: 280px;
+}
+
+@keyframes cardFadeIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 /* ============================================================
@@ -654,26 +848,25 @@
 .form-emerge-container {
   position: relative;
   z-index: 20;
-  margin-bottom: 20px;
 }
 
-/* 3D Pop-up spring animation out of the briefcase */
-.card-entering {
+.form-opening-up {
   animation: formPopOut 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
   transform-origin: bottom center;
 }
 
-.card-exiting {
+.form-closing-down {
   animation: formSuckIn 0.5s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+  transform-origin: bottom center;
 }
 
 @keyframes formPopOut {
   0% {
-    transform: translateY(180px) scale(0.12) rotateX(40deg);
+    transform: translateY(180px) scale(0.15) rotateX(30deg);
     opacity: 0;
   }
   60% {
-    transform: translateY(-12px) scale(1.03) rotateX(0deg);
+    transform: translateY(-10px) scale(1.02) rotateX(0deg);
     opacity: 1;
   }
   100% {
@@ -688,11 +881,12 @@
     opacity: 1;
   }
   100% {
-    transform: translateY(160px) scale(0.1);
+    transform: translateY(180px) scale(0.12);
     opacity: 0;
   }
 }
 
+/* Card Container */
 /* Card Container */
 .auth-card-wrapper {
   perspective: 1000px;
@@ -704,17 +898,17 @@
   max-width: 92vw;
   background: var(--color-bg-card);
   border-radius: var(--radius-lg);
-  padding: 30px 28px;
+  padding: 16px 22px;
   box-shadow: var(--shadow-card);
-  border: 1px solid rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.95);
   transition: all 0.3s ease;
 }
 
-/* Close Button (top-right X) */
+/* Close Button [X]: Triggers collapse and representative walking away */
 .auth-close-btn {
   position: absolute;
-  top: 18px;
-  right: 18px;
+  top: 14px;
+  right: 14px;
   width: 32px;
   height: 32px;
   display: flex;
@@ -724,56 +918,60 @@
   color: var(--color-text-muted);
   background: #f1f5f9;
   transition: all 0.2s ease;
-  z-index: 5;
+  z-index: 10;
+  cursor: pointer;
 }
 
 .auth-close-btn:hover {
-  background: #e2e8f0;
-  color: var(--color-text-main);
+  background: #fee2e2;
+  color: #ef4444;
   transform: rotate(90deg);
 }
 
-/* Mode Switcher Tabs */
-.auth-tabs-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+.auth-close-btn svg {
+  width: 16px;
+  height: 16px;
+  display: block;
 }
 
-.auth-tabs-pill {
+/* Mode Switcher Segmented Control */
+.auth-segmented-control {
   position: relative;
   display: flex;
   background: #f1f5f9;
-  padding: 4px;
+  padding: 3px;
   border-radius: 9999px;
-  width: 220px;
+  margin-bottom: 10px;
+  width: 240px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.auth-tab {
+.segment-btn {
   flex: 1;
   position: relative;
   z-index: 2;
-  padding: 7px 0;
-  font-size: 13px;
+  padding: 6px 0;
+  font-size: 12.5px;
   font-weight: 700;
   text-align: center;
   color: var(--color-text-muted);
   transition: color 0.2s ease;
 }
 
-.auth-tab.active {
+.segment-btn.active {
   color: var(--color-text-main);
 }
 
-.auth-tab-indicator {
+.segment-pill-slider {
   position: absolute;
-  top: 4px;
-  left: 4px;
-  bottom: 4px;
-  width: calc(50% - 4px);
+  top: 3px;
+  left: 3px;
+  bottom: 3px;
+  width: calc(50% - 3px);
   background: #ffffff;
   border-radius: 9999px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
 }
@@ -781,43 +979,102 @@
 /* Header */
 .auth-header {
   text-align: center;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 .auth-title {
-  font-size: 24px;
+  font-size: 21px;
   font-weight: 800;
   color: var(--color-text-main);
   letter-spacing: -0.5px;
-  margin-bottom: 6px;
+  margin-bottom: 2px;
 }
 
 .auth-subtitle {
-  font-size: 13.5px;
+  font-size: 12px;
   color: var(--color-text-muted);
-  line-height: 1.4;
+  line-height: 1.35;
   max-width: 320px;
   margin: 0 auto;
 }
 
-/* Quick Fill helper bar */
+/* Social Logins Grid */
+.social-auth-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.social-auth-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-sm);
+  background: #ffffff;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #334155;
+  transition: all 0.2s ease;
+}
+
+.social-auth-btn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.social-auth-btn.github {
+  color: #0f172a;
+}
+
+/* Divider */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 8px 0 10px;
+  color: #94a3b8;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.auth-divider span {
+  padding: 0 10px;
+}
+
+/* Quick Fill bar */
 .quick-fill-bar {
   display: flex;
   justify-content: center;
-  margin-bottom: 18px;
+  margin-bottom: 8px;
 }
 
 .quick-fill-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 600;
   color: #2563eb;
   background: #eff6ff;
   border: 1px dashed #93c5fd;
-  padding: 5px 12px;
+  padding: 4px 10px;
   border-radius: 9999px;
+  transition: all 0.2s ease;
 }
 
 .quick-fill-btn:hover {
@@ -825,21 +1082,27 @@
   border-color: #3b82f6;
 }
 
-/* Form Styles */
+.quick-fill-btn svg {
+  width: 13px;
+  height: 13px;
+  display: block;
+}
+
+/* Form */
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .form-label {
-  font-size: 12.5px;
+  font-size: 11.5px;
   font-weight: 700;
   color: #334155;
 }
@@ -850,21 +1113,23 @@
   align-items: center;
 }
 
-.forgot-link {
-  font-size: 12px;
+.forgot-link-btn {
+  font-size: 11.5px;
   font-weight: 600;
   color: #2563eb;
-  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
 }
 
-.forgot-link:hover {
+.forgot-link-btn:hover {
   text-decoration: underline;
 }
 
 .name-inputs-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 8px;
 }
 
 .input-container {
@@ -875,7 +1140,7 @@
 
 .input-icon {
   position: absolute;
-  left: 12px;
+  left: 10px;
   color: var(--color-text-light);
   pointer-events: none;
   display: flex;
@@ -884,14 +1149,20 @@
   transition: color 0.2s ease;
 }
 
+.input-icon svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+}
+
 .auth-input {
   width: 100%;
-  height: 44px;
-  padding: 10px 14px 10px 40px;
+  height: 38px;
+  padding: 7px 10px 7px 34px;
   background: var(--color-bg-input);
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-sm);
-  font-size: 14px;
+  font-size: 13px;
   color: var(--color-text-main);
   transition: all 0.2s ease;
 }
@@ -921,42 +1192,86 @@
   font-size: 11px;
   font-weight: 600;
   color: #ef4444;
-  margin-top: 3px;
+  margin-top: 2px;
 }
 
 .password-toggle-btn {
   position: absolute;
-  right: 12px;
+  right: 8px;
   color: var(--color-text-light);
   display: flex;
   align-items: center;
   padding: 4px;
 }
 
+.password-toggle-btn svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+}
+
 .password-toggle-btn:hover {
   color: var(--color-text-main);
 }
 
+/* Password Strength Indicator */
+.password-strength-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.strength-bars {
+  flex: 1;
+  display: flex;
+  gap: 4px;
+}
+
+.strength-bar {
+  flex: 1;
+  height: 3.5px;
+  border-radius: 2px;
+  transition: background 0.2s ease;
+}
+
+.strength-text {
+  font-size: 10.5px;
+  font-weight: 700;
+  min-width: 42px;
+}
+
+/* Checkboxes */
 .checkbox-row {
-  margin-top: -4px;
+  margin-top: -2px;
 }
 
 .checkbox-label {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 12.5px;
+  font-size: 11.5px;
   color: var(--color-text-muted);
   cursor: pointer;
   user-select: none;
 }
 
 .custom-checkbox {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   accent-color: var(--color-primary);
   border-radius: 4px;
   cursor: pointer;
+}
+
+.inline-link {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.inline-link:hover {
+  text-decoration: underline;
 }
 
 /* ============================================================
@@ -965,8 +1280,8 @@
 .auth-submit-btn {
   position: relative;
   width: 100%;
-  height: 48px;
-  margin-top: 6px;
+  height: 40px;
+  margin-top: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -975,32 +1290,18 @@
   border: none;
   border-radius: var(--radius-sm);
   color: #ffffff;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.3px;
-  box-shadow: 0 10px 20px -4px var(--color-green-glow);
-  overflow: hidden;
-}
-
-.auth-submit-btn::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-  transform: skewX(-20deg);
-  transition: 0.5s;
-}
-
-.auth-submit-btn:hover::after {
-  left: 140%;
+  box-shadow: 0 8px 18px -4px var(--color-green-glow);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .auth-submit-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 14px 26px -4px rgba(16, 185, 129, 0.6);
+  box-shadow: 0 12px 24px -4px rgba(16, 185, 129, 0.6);
+  background: linear-gradient(180deg, #34d399 0%, #059669 100%);
 }
 
 .auth-submit-btn:active {
@@ -1014,6 +1315,10 @@
 }
 
 .btn-arrow {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  flex-shrink: 0;
   transition: transform 0.2s ease;
 }
 
@@ -1022,8 +1327,8 @@
 }
 
 .btn-spinner {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border: 2.5px solid rgba(255, 255, 255, 0.3);
   border-top-color: #ffffff;
   border-radius: 50%;
@@ -1034,13 +1339,13 @@
   to { transform: rotate(360deg); }
 }
 
-/* Footer inline switch */
+/* Footer Switcher */
 .auth-card-footer {
-  margin-top: 20px;
-  padding-top: 14px;
+  margin-top: 16px;
+  padding-top: 12px;
   border-top: 1px solid var(--color-border);
   text-align: center;
-  font-size: 13px;
+  font-size: 12.5px;
   color: var(--color-text-muted);
 }
 
@@ -1108,7 +1413,7 @@
   font-size: 13.5px;
   color: var(--color-text-muted);
   line-height: 1.5;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .success-ticket {
@@ -1117,7 +1422,7 @@
   border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 14px;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
   text-align: left;
 }
 
@@ -1193,48 +1498,71 @@
 }
 
 /* ============================================================
-   VIDEO SYNC ENGINE CONTAINER
+   RESET PASSWORD MODAL
    ============================================================ */
-.video-stage-container {
-  position: relative;
-  width: 100%;
-  max-width: 900px;
+.reset-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(4px);
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 50;
+  padding: 24px;
 }
 
-.video-crop-box {
-  position: relative;
+.reset-modal-content {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
   width: 100%;
-  max-width: 840px;
-  height: 520px;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: #1e40af;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-/* The video is cropped to display the top stage cleanly */
-.synced-video-player {
-  position: absolute;
-  top: -5%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 130%;
-  height: 220%;
-  object-fit: cover;
-  object-position: center 22%;
-  pointer-events: none;
+.reset-modal-content h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 6px;
 }
 
-.video-interactive-overlay {
-  position: absolute;
-  top: 50%;
-  left: 60%;
-  transform: translate(-50%, -50%);
-  z-index: 25;
+.reset-modal-content p {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 16px;
+}
+
+.reset-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.reset-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.reset-btn {
+  width: auto;
+  padding: 8px 18px;
+  height: 38px;
+  font-size: 13.5px;
+}
+
+.reset-done-alert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #d1fae5;
+  color: #065f46;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 /* ============================================================
@@ -1294,26 +1622,17 @@
 
   .actor-character-slot {
     height: 180px;
-    width: 110px;
-    margin-bottom: -20px;
+    width: 120px;
+    margin-bottom: -10px;
   }
 
   .auth-card {
     width: 100%;
-    padding: 24px 20px;
+    padding: 24px 18px;
   }
 
   .name-inputs-row {
     grid-template-columns: 1fr;
-  }
-
-  .video-crop-box {
-    height: 380px;
-  }
-
-  .video-interactive-overlay {
-    left: 50%;
-    width: 90%;
   }
 
   .stage-footer-bar {
