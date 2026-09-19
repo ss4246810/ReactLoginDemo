@@ -17,7 +17,7 @@ export default function AnimatedStage() {
   // 8. 'walking_out'  -> Character turns right and walks away to the right carrying the bag
   // 9. 'vacant'       -> Character is off-screen; summon button available
   const [phase, setPhase] = useState('walking_in')
-  const [avatarType, setAvatarType] = useState('nepali') // 'nepali' | 'executive'
+  const [avatarType, setAvatarType] = useState('executive') // 'nepali' | 'executive'
   const [activeMode, setActiveMode] = useState('register') // 'register' | 'login'
   const [focusedField, setFocusedField] = useState(null)
   const [isCheering, setIsCheering] = useState(false)
@@ -33,11 +33,11 @@ export default function AnimatedStage() {
   }
 
   // Sequence:
-  // 1. Walk in from left in side profile facing right, holding bag (0 - 1.8s)
-  // 2. Reach center beside box spot, bend down in profile, place bag on floor (1.8s - 2.6s)
-  // 3. Release bag onto floor at 2.2s
-  // 4. Turn to face screen/audience (2.6s - 3.2s) -> "ani uslya screen tira hyarxa"
-  // 5. Box opens, Form emerges upwards from box (3.2s)
+  // 1. Walk in from left in side profile facing right, holding bag (0 - 4s)
+  // 2. Reach center beside box spot, bend down in profile, place bag on floor (4s - 5s)
+  // 3. Release bag onto floor at 4.55s
+  // 4. Turn to face screen/audience (5s - 5.6s) -> "ani uslya screen tira hyarxa"
+  // 5. Box opens, Form emerges upwards from box (5.6s)
   const startEntranceSequence = () => {
     clearTimers()
     setIsCheering(false)
@@ -51,26 +51,26 @@ export default function AnimatedStage() {
     // Step 2: Reached center! Still in side profile! Bends down to place bag on floor
     const t1 = setTimeout(() => {
       setPhase('placing_bag')
-    }, 1800)
+    }, 4000)
 
     // Hand sets bag down on floor
     const t1_drop = setTimeout(() => {
       setIsHoldingBag(false)
       setIsBagOnFloor(true)
       sound.playClick()
-    }, 2200)
+    }, 4550)
 
     // Step 3: Straightens up and turns to face the screen/audience
     const t2 = setTimeout(() => {
       setPhase('turning')
       sound.playPop()
-    }, 2600)
+    }, 5000)
 
     // Step 4: Box lid opens, Form unfolds up from the box, character presents to user
     const t3 = setTimeout(() => {
       setPhase('form_open')
       sound.playWhoosh()
-    }, 3200)
+    }, 5600)
 
     timersRef.current = [t1, t1_drop, t2, t3]
   }
@@ -79,10 +79,10 @@ export default function AnimatedStage() {
   // 1. Form collapses down into box (0 - 0.4s) -> "ani jaani bela form box vitra jaanxa"
   // 2. Box snaps shut with click (0.4s - 0.7s)
   // 3. Character turns from front to side profile facing box (0.7s - 1.0s)
-  // 4. Character bends down in profile to pick up bag (1.0s - 1.6s)
-  // 5. Hand lifts bag off floor at 1.3s
-  // 6. Character strides away to the right carrying bag (1.6s - 3.4s) -> "ani uu daaya tira lagxa"
-  // 7. Vacant screen with summon button (3.4s)
+  // 4. Character bends down in profile to pick up bag (1.0s - 1.9s)
+  // 5. Hand lifts bag off floor at 1.45s
+  // 6. Character strides away to the right carrying bag (1.9s - 5.9s) -> "ani uu daaya tira lagxa"
+  // 7. Vacant screen with summon button (5.9s)
   const handleCloseForm = () => {
     clearTimers()
     sound.playPop()
@@ -111,17 +111,17 @@ export default function AnimatedStage() {
       setIsBagOnFloor(false)
       setIsHoldingBag(true)
       sound.playClick()
-    }, 1300)
+    }, 1450)
 
     // Step 5: Character stands up with bag and walks away to the right
     const t4 = setTimeout(() => {
       setPhase('walking_out')
-    }, 1600)
+    }, 1900)
 
     // Step 6: Character is off-screen
     const t5 = setTimeout(() => {
       setPhase('vacant')
-    }, 3400)
+    }, 5900)
 
     timersRef.current = [t1, t2, t3, t3_grab, t4, t5]
   }
@@ -130,6 +130,10 @@ export default function AnimatedStage() {
     const next = !muted
     setMuted(next)
     sound.muted = next
+    if (!next) {
+      sound.unlock()
+      sound.playSwitch()
+    }
   }
 
   const toggleAvatar = () => {
@@ -140,6 +144,20 @@ export default function AnimatedStage() {
   useEffect(() => {
     startEntranceSequence()
     return () => clearTimers()
+  }, [])
+
+  useEffect(() => {
+    const unlockAudio = () => {
+      sound.unlock()
+    }
+
+    window.addEventListener('pointerdown', unlockAudio, { once: true })
+    window.addEventListener('keydown', unlockAudio, { once: true })
+
+    return () => {
+      window.removeEventListener('pointerdown', unlockAudio)
+      window.removeEventListener('keydown', unlockAudio)
+    }
   }, [])
 
   const handleSuccessSubmit = () => {

@@ -249,7 +249,7 @@
 
 /* 1. Walk in from left facing right in natural side profile */
 .slot-walking_in {
-  animation: naturalWalkInFromLeft 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: naturalWalkInFromLeft 4s linear forwards;
 }
 
 /* 2. Arrive at center, bend down to place bag on floor */
@@ -279,7 +279,7 @@
 
 /* 7. Walking away facing right off-screen carrying bag ("ani uu daaya tira lagxa") */
 .slot-walking_out {
-  animation: naturalWalkOutToRight 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: naturalWalkOutToRight 4s linear forwards;
 }
 
 /* ============================================================
@@ -288,13 +288,13 @@
 /* Side Profile Legs Striding (active while walking in & out) */
 .pose-walking_in .profile-leg-front,
 .pose-walking_out .profile-leg-front {
-  animation: profileLegStrideFront 0.48s infinite ease-in-out;
+  animation: profileLegStrideFront 0.92s infinite cubic-bezier(0.45, 0, 0.55, 1);
   transform-origin: 90px 200px;
 }
 
 .pose-walking_in .profile-leg-back,
 .pose-walking_out .profile-leg-back {
-  animation: profileLegStrideBack 0.48s infinite ease-in-out;
+  animation: profileLegStrideBack 0.92s infinite cubic-bezier(0.45, 0, 0.55, 1);
   transform-origin: 90px 200px;
 }
 
@@ -303,34 +303,34 @@
 .pose-walking_out .profile-torso,
 .pose-walking_in .profile-head,
 .pose-walking_out .profile-head {
-  animation: profileTorsoBob 0.48s infinite ease-in-out;
+  animation: profileTorsoBob 0.92s infinite ease-in-out;
   transform-origin: 90px 200px;
 }
 
 /* Weighted Handbag / Briefcase Pendulum Swing */
 .pose-walking_in .profile-arm-front,
 .pose-walking_out .profile-arm-front {
-  animation: profileArmSwing 0.48s infinite ease-in-out;
+  animation: profileArmSwing 0.92s infinite ease-in-out;
   transform-origin: 90px 125px;
 }
 
 .pose-walking_in .profile-bag-pendulum,
 .pose-walking_out .profile-bag-pendulum {
-  animation: profileBagLag 0.48s infinite ease-in-out;
+  animation: profileBagLag 0.92s infinite ease-in-out;
   transform-origin: 22px 4px;
 }
 
 /* Long Braid trailing in walking breeze */
 .pose-walking_in .profile-braid-trail,
 .pose-walking_out .profile-braid-trail {
-  animation: braidBreezeSway 0.48s infinite ease-in-out;
+  animation: braidBreezeSway 0.92s infinite ease-in-out;
   transform-origin: 78px 78px;
 }
 
 /* Dynamic Shadow size change with steps */
 .pose-walking_in .profile-ground-shadow,
 .pose-walking_out .profile-ground-shadow {
-  animation: shadowStepPulse 0.48s infinite ease-in-out;
+  animation: shadowStepPulse 0.92s infinite ease-in-out;
   transform-origin: 90px 325px;
 }
 
@@ -359,28 +359,63 @@
 /* Keyframes */
 @keyframes naturalWalkInFromLeft {
   0% {
-    transform: translateX(-560px);
+    transform: translate(-560px, 0);
     opacity: 0;
   }
+  8% {
+    transform: translate(-515px, -4px);
+  }
   15% {
+    transform: translate(-470px, 0);
     opacity: 1;
   }
+  28% {
+    transform: translate(-390px, -4px);
+  }
+  42% {
+    transform: translate(-305px, 0);
+  }
+  56% {
+    transform: translate(-220px, -4px);
+  }
+  70% {
+    transform: translate(-135px, 0);
+  }
+  84% {
+    transform: translate(-55px, -3px);
+  }
   100% {
-    transform: translateX(0);
+    transform: translate(0, 0);
     opacity: 1;
   }
 }
 
 @keyframes naturalWalkOutToRight {
   0% {
-    transform: translateX(0);
+    transform: translate(0, 0);
     opacity: 1;
   }
+  14% {
+    transform: translate(90px, -4px);
+  }
+  28% {
+    transform: translate(180px, 0);
+  }
+  42% {
+    transform: translate(270px, -4px);
+  }
+  56% {
+    transform: translate(365px, 0);
+  }
+  70% {
+    transform: translate(465px, -4px);
+  }
   80% {
+    transform: translate(540px, 0);
     opacity: 1;
   }
   100% {
-    transform: translateX(650px);
+    transform: translate(650px, 0);
     opacity: 0;
   }
 }
@@ -390,33 +425,33 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-8px);
+    transform: translateY(-7px);
   }
 }
 
 /* Front Leg: Forward reach -> Plant -> Push back */
 @keyframes profileLegStrideFront {
   0% {
-    transform: rotate(24deg) translateY(0);
+    transform: rotate(25deg) translateY(0);
   }
-  50% {
-    transform: rotate(0deg) translateY(-5px);
+  45% {
+    transform: rotate(2deg) translateY(-6px);
   }
   100% {
-    transform: rotate(-22deg) translateY(0);
+    transform: rotate(-23deg) translateY(0);
   }
 }
 
 /* Back Leg: Opposite stride */
 @keyframes profileLegStrideBack {
   0% {
-    transform: rotate(-22deg) translateY(0);
+    transform: rotate(-23deg) translateY(0);
   }
-  50% {
-    transform: rotate(0deg) translateY(-5px);
+  45% {
+    transform: rotate(-2deg) translateY(-6px);
   }
   100% {
-    transform: rotate(24deg) translateY(0);
+    transform: rotate(25deg) translateY(0);
   }
 }
 
@@ -426,7 +461,7 @@
     transform: rotate(14deg);
   }
   50% {
-    transform: rotate(-2deg);
+    transform: rotate(-4deg);
   }
   100% {
     transform: rotate(-14deg);
@@ -436,13 +471,13 @@
 /* Bag Pendulum Inertia */
 @keyframes profileBagLag {
   0% {
-    transform: translate(85px, 218px) rotate(-10deg);
+    transform: translate(85px, 218px) rotate(-11deg);
   }
   50% {
-    transform: translate(85px, 212px) rotate(2deg);
+    transform: translate(85px, 214px) rotate(2deg);
   }
   100% {
-    transform: translate(85px, 218px) rotate(12deg);
+    transform: translate(85px, 218px) rotate(11deg);
   }
 }
 
