@@ -203,10 +203,24 @@ export default function AnimatedStage() {
 
       {/* Top Navbar */}
       <header className="stage-navbar">
-        <div className="brand-badge">
-          <div className="brand-dot" />
-          <span className="brand-title">Production Auth Portal</span>
-        </div>
+        <a
+          className="brand-badge"
+          href="https://sureshshrestha9848.com.np/"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Visit Suresh Shrestha website"
+        >
+          <svg
+            className="brand-logo-mark"
+            viewBox="0 0 96 64"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M86 5 L39 22 C32 24 25 30 21 36 L63 36 C70 36 74 40 71 47 C69 52 64 55 58 56 L9 62 L44 43 L22 43 C14 43 10 39 14 32 L32 14 L86 5 Z" />
+            <path d="M71 24 L58 37 L42 37 L55 28 L71 24 Z" fill="currentColor" opacity="0.9" />
+          </svg>
+          <span className="brand-title">Suresh Shrestha</span>
+        </a>
 
         <div className="controls-group">
           {/* Avatar Switcher */}
